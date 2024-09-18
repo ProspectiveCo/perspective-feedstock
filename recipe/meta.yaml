@@ -6,18 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/p/perspective-python/perspective_python-{{ version }}.tar.gz
-    sha256: f3719c94f601a4bfbe4a80b867ce581aae92ffed47f0bde18d751c901e7cea1a
-    patches:
-      - patches/fix_windows.diff
+  # - url: https://github.com/finos/perspective/actions/runs/10906536453/artifacts/1943747050
+  #   sha256: 7d711fb449aee8b90a678e6877b1163b1cb86216d1c4e382dd982a4a49c986b7
+  #   patches:
+  #     - patches/fix_windows.diff
 
-  - url: https://github.com/finos/perspective/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: f3f8219da29a74542b42d92b79e988b471f6414bd74eb51a6c46f043876c18f4
-    folder: perspective-cpp
-    patches:
-      - patches/shared_boost.diff
-      - patches/fix_flags.diff
-      - patches/fix_arrow.diff
+  # - url: https://github.com/finos/perspective/archive/refs/tags/v{{ version }}.tar.gz
+  #   sha256: f3f8219da29a74542b42d92b79e988b471f6414bd74eb51a6c46f043876c18f4
+  #   folder: perspective
+  #   patches:
+  #     - patches/shared_boost.diff
+  #     - patches/fix_flags.diff
+  #     - patches/fix_arrow.diff
+
+  git_url: https://github.com/finos/perspective.git
+  git_rev: python-imports
+  # git_depth: 1
 
 build:
   number: 1
