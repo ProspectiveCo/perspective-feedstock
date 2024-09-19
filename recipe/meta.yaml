@@ -46,10 +46,8 @@ requirements:
     - libboost-devel
   run:
     - python
-    - numpy
     - jinja2 >=2.0,<4
     - ipywidgets >=7.5.1,<9
-    - pandas <3,>=0.22.0
     - python-dateutil <3,>=2.8.0
     - traitlets <6,>=4.3.2
 
