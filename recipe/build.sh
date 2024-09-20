@@ -8,8 +8,8 @@ export PKG_CONFIG_PATH=$BUILD_PREFIX/lib/pkgconfig/:$PKG_CONFIG_PATH
 export PACKAGE=perspective-python
 export PSP_BUILD_WHEEL=1
 
-export CARGO_FEATURE_EXTERNAL_CPP=1
-export CARGO_FEATURE_EXTERNAL_PROTO=1
+# export CARGO_FEATURE_EXTERNAL_CPP=1
+# export CARGO_FEATURE_EXTERNAL_PROTO=1
 
 # patch package.json
 # playwright browsers can't be installed, and aren't needed anyway
