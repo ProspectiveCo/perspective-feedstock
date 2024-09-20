@@ -40,6 +40,10 @@ requirements:
     - make
     - libprotobuf
     - nodejs >=16 # XXX(tom): check version
+    - pnpm
+    - pkg-config
+    - pixman # XXX(tom): can remove this w/ better scoping on pnpm install, maybe? try it
+    - git
   host:
     - python
     - pip
