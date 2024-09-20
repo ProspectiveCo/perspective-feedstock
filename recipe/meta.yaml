@@ -39,6 +39,7 @@ requirements:
     - cmake
     - make
     - libprotobuf
+    - nodejs >=16 # XXX(tom): check version
   host:
     - python
     - pip
@@ -57,15 +58,15 @@ test:
 
 outputs:
   - name: perspective
-  - name: perspective-python
-    requirements:
-      build:
-        - {{ stdlib("c") }}
-      host:
-        - python
-      run:
-        - python
-        - perspective ={{ version }}
+  # - name: perspective-python
+  #   requirements:
+  #     build:
+  #       - {{ stdlib("c") }}
+  #     host:
+  #       - python
+  #     run:
+  #       - python
+  #       - perspective ={{ version }}
 
   # TODO this is supposed to work, but fails with weird
   # bugs. Try again in the future
