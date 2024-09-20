@@ -44,6 +44,8 @@ requirements:
     - pkg-config
     - pixman # XXX(tom): can remove this w/ better scoping on pnpm install, maybe? try it
     - git
+    - sed
+    # XXX(tom): emsdk?
   host:
     - python
     - pip
