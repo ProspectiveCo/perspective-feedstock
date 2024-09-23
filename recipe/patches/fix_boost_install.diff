@@ -1,0 +1,22 @@
+diff --git a/tools/perspective-scripts/install_tools.mjs b/tools/perspective-scripts/install_tools.mjs
+index 5dde80462..6dfdefbc6 100644
+--- a/tools/perspective-scripts/install_tools.mjs
++++ b/tools/perspective-scripts/install_tools.mjs
+@@ -36,6 +36,17 @@ export function install_boost(version = "1_82_0") {
+         flags.push(sh`architecture=arm+x86`);
+     }
+
++    if (process.env["CONDA"] == "1") {
++        // conda doesn't provide a compiler on the path which boost can detect.
++        // conda sets CXX in the env to point at a compiler
++        flags.push(sh`--cxx=$CXX`);
++    }
++
++    const boostRoot = process.env["Boost_ROOT"];
++    if (boostRoot) {
++        flags.push(sh`--prefix=${boostRoot}`);
++    }
++
+     const cmd = sh`wget ${URL} >/dev/null 2>&1`;
+     cmd.sh`tar xfz boost_1_82_0.tar.gz`;
+     cmd.sh`cd boost_1_82_0`;
