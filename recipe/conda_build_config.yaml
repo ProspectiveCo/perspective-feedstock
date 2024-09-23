@@ -3,4 +3,4 @@ c_compiler:                # [win]
 cxx_compiler:              # [win]
   - vs2019                 # [win]
 channel_sources:
-  - conda-forge/label/rust_dev,conda-forge
+  - conda-forge
