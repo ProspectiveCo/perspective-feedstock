@@ -26,22 +26,26 @@ pnpm pkg set scripts.postinstall:vscode="echo no-postinstall:vscode"
 pnpm pkg set scripts.postinstall:emsdk="echo no-postinstall:emsdk"
 
 # workaround boost's inability to detect cxx compiler from $CXX
-mkdir $HOME/bin
-ln -s $CXX $HOME/bin/cxx
-ln -s $CXX $HOME/bin/g++
-# workaround maturin using wrong python??
+psp_bin=$(mktemp -d $TMPDIR/psp_bin_XXXXXXXXXXXXX)
+export PATH=$psp_bin:$PATH
+ln -s $CXX $psp_bin/cxx
+ln -s $CXX $psp_bin/g++
 
+# XXX(tom): workaround maturin using wrong python??
+#
+echo "$$PYTHON is: $PYTHON"
+
+# XXX(tom): move me into a patch
 # remove lint from workspace - parsing lint's Cargo.toml file requires nightly
 # features, and we are building with a stable toolchain
 sed -e '/.*rust\/lint.*/d' -i'.backup' Cargo.toml
 
 pnpm install --filter !@finos/perspective-bench
 
-# XXX(tom): TODO: unset cargo feature so as to not use ABI3
 # Install boost:
 # This configures both the install directory for install_tools.mjs,
 # and also the place where FindBoost looks for Boost.
-export Boost_ROOT=/tmp/perspective-boost
+export Boost_ROOT=$TMPDIR/perspective-boost
 node tools/perspective-scripts/install_tools.mjs
 pnpm run build
 
