@@ -26,26 +26,25 @@ pnpm pkg set scripts.postinstall:vscode="echo no-postinstall:vscode"
 pnpm pkg set scripts.postinstall:emsdk="echo no-postinstall:emsdk"
 
 # Boost!
-# Work around boost's inability to detect cxx compiler from $CXX.
+# Work around Boost bootstrap script's inability to detect cxx compiler
+# on Linux.
 # In short: conda provides the compiler as CXX in the environment.
-# It does not, however, provide a `g++` or `clang++` on the PATH.
+# It does not, however, provide `g++` on the PATH, at least on Linux.
+# (The conda environment does provide a `clang++` binary on the PATH on macOS).
 # Boost's bootstrap script looks for a suitably-named compiler on the PATH to
 # determine its toolchain, so we have to create those binaries
 # Note: assumes GNU mktemp
 psp_bin=$(mktemp -d -t 'psp-bin-XXXXXX')
+export PATH=$psp_bin:$PATH
 case "${cxx_compiler}" in
   gxx)
     cxx_compiler_plus="g++"
+    ln -s $CXX $psp_bin/$cxx_compiler_plus
     ;;
   *)
     cxx_compiler_plus="${cxx_compiler}"
   ;;
 esac
-
-export PATH=$psp_bin:$PATH
-ln -s $CXX $psp_bin/cxx
-# ln -s $CXX $psp_bin/$cxx_compiler
-ln -s $CXX $psp_bin/$cxx_compiler_plus
 
 # XXX(tom): workaround maturin using wrong python??
 #
@@ -73,8 +72,8 @@ pnpm install --filter '!@finos/perspective-bench'
 # This configures both the install directory for install_tools.mjs,
 # and also the place where FindBoost looks for Boost.
 # Note: assumes GNU mktemp
-export Boost_ROOT=$(mktemp -d -t 'psp-boost-root-XXXXXX')
-node tools/perspective-scripts/install_tools.mjs
+# export Boost_ROOT=$(mktemp -d -t 'psp-boost-root-XXXXXX')
+# node tools/perspective-scripts/install_tools.mjs
 pnpm run build
 
 $PYTHON -m pip install rust/target/wheels/perspective_python*.whl -vv

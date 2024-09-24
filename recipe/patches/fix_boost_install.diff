@@ -8,7 +8,9 @@ index 5dde80462..6dfdefbc6 100644
 
 +    if (process.env["CONDA"] == "1") {
 +        // conda doesn't provide a compiler on the path which boost can detect.
-+        // conda sets CXX in the env to point at a compiler
++        // conda sets CXX in the env to point at a compiler; an executable
++        // named "cxx" is required to be on the path, even when --cxx is passed
++        // like this.
 +        flags.push(sh`--cxx=$CXX`);
 +    }
 +

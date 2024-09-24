@@ -9,14 +9,8 @@ os.makedirs(d, exist_ok=True)
 os_name = platform.system().lower()
 machine = platform.machine()
 machine = machine if machine != "aarch64" else "arm64"
-ext = "dll" if os == "windows" else "so"
-
-ext = "so"
-if platform.system().lower() == "windows":
-    ext = "dll"
-arch = platform.machine().lower()
-if arch == "amd64":
-    arch = "x86_64"
+ext = "dll" if os_name == "windows" else "so"
+arch = "x86_64" if platform.machine().lower() == "amd64"
 dylib_name = f"{platform.system().lower()}-{arch}-libpsp.{ext}"
 
 target_dir = os.environ.get("CARGO_TARGET_DIR", "target")

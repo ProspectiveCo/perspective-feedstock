@@ -25,6 +25,9 @@ source:
     - patches/fix_boost_install.diff
     - patches/disable_abi3.diff
     - patches/disable_explicit_manylinux.diff
+    # patching boost to build it correctly from source in Conda is a rat's nest, punting on that
+    # see https://github.com/conda-forge/boost-feedstock/blob/main/recipe/build.sh#L4-L39
+    - patches/shared_boost.diff
   # git_depth: 1
 
 build:
