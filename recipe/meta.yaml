@@ -52,6 +52,7 @@ requirements:
     - xsimd # XXX(tom): Andrew says we shouldn't need this b/c we disable SIMD in arrow build
     - lz4 # XXX(tom): likewise, this should be built from source downloaded by psp repo script
     - wheel
+    - coreutils
   host:
     - python
     - pip
