@@ -25,11 +25,27 @@ pnpm pkg set scripts.postinstall:playwright="echo no-postinstall:playwright"
 pnpm pkg set scripts.postinstall:vscode="echo no-postinstall:vscode"
 pnpm pkg set scripts.postinstall:emsdk="echo no-postinstall:emsdk"
 
-# workaround boost's inability to detect cxx compiler from $CXX
-psp_bin=$(mktemp -d $TMPDIR/psp_bin_XXXXXXXXXXXXX)
+# Boost!
+# Work around boost's inability to detect cxx compiler from $CXX.
+# In short: conda provides the compiler as CXX in the environment.
+# It does not, however, provide a `g++` or `clang++` on the PATH.
+# Boost's bootstrap script looks for a suitably-named compiler on the PATH to
+# determine its toolchain, so we have to create those binaries
+# Note: assumes GNU mktemp
+psp_bin=$(mktemp -d -t 'psp-bin-XXXXXX')
+case "${cxx_compiler}" in
+  gxx)
+    cxx_compiler_plus="g++"
+    ;;
+  *)
+    cxx_compiler_plus="${cxx_compiler}"
+  ;;
+esac
+
 export PATH=$psp_bin:$PATH
 ln -s $CXX $psp_bin/cxx
-ln -s $CXX $psp_bin/g++
+# ln -s $CXX $psp_bin/$cxx_compiler
+ln -s $CXX $psp_bin/$cxx_compiler_plus
 
 # XXX(tom): workaround maturin using wrong python??
 #
@@ -40,12 +56,24 @@ echo "$$PYTHON is: $PYTHON"
 # features, and we are building with a stable toolchain
 sed -e '/.*rust\/lint.*/d' -i'.backup' Cargo.toml
 
-pnpm install --filter !@finos/perspective-bench
+pnpm install --filter '!@finos/perspective-bench'
+
+# XXX(tom): workaround maturin using wrong python??
+#
+echo "$$PYTHON is: $PYTHON"
+
+# XXX(tom): move me into a patch
+# remove lint from workspace - parsing lint's Cargo.toml file requires nightly
+# features, and we are building with a stable toolchain
+sed -e '/.*rust\/lint.*/d' -i'.backup' Cargo.toml
+
+pnpm install --filter '!@finos/perspective-bench'
 
 # Install boost:
 # This configures both the install directory for install_tools.mjs,
 # and also the place where FindBoost looks for Boost.
-export Boost_ROOT=$TMPDIR/perspective-boost
+# Note: assumes GNU mktemp
+export Boost_ROOT=$(mktemp -d -t 'psp-boost-root-XXXXXX')
 node tools/perspective-scripts/install_tools.mjs
 pnpm run build
 
