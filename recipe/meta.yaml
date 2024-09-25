@@ -31,22 +31,21 @@ requirements:
     - {{ compiler('rust') }}
     - cmake
     - make
-    - nodejs >=16 # XXX(tom): check version
+    - nodejs
     - pnpm
     - pkg-config
     - git
     - wget # to download boost sources from install_tools.mjs
+    - coreutils # sed, build.sh
     # XXX(tom): emsdk? no, use `jupyterlab` tooling to build extension
-    - xsimd # XXX(tom): Andrew says we shouldn't need this b/c we disable SIMD in arrow build
-    - lz4 # XXX(tom): likewise, this should be built from source downloaded by psp repo script
-    - coreutils
+    # - xsimd # XXX(tom): Andrew says we shouldn't need this b/c we disable SIMD in arrow build
+    # - lz4 # XXX(tom): likewise, this should be built from source downloaded by psp repo script
     - nvim # XXX(tom): deleteme
   host:
     - python
     - pip
     - maturin >=1.4,<2.0
     - libstdcxx
-    # - libboost-devel
   run:
     - python
 
