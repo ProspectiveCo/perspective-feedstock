@@ -25,6 +25,8 @@ source:
     - patches/fix_boost_install.diff
     - patches/disable_abi3.diff
     - patches/disable_explicit_manylinux.diff
+    - patches/delete_postinstall.diff
+    - patches/delete_lint_package.diff
   # git_depth: 1
 
 build:
@@ -38,7 +40,6 @@ requirements:
     - maturin >=1.4,<2.0                     # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-    # - {{ stdlib('cxx') }}
     - {{ compiler('cxx') }}
     - {{ compiler('rust') }}
     - cmake
@@ -51,8 +52,8 @@ requirements:
     # XXX(tom): emsdk? no, use `jupyterlab` tooling to build extension
     - xsimd # XXX(tom): Andrew says we shouldn't need this b/c we disable SIMD in arrow build
     - lz4 # XXX(tom): likewise, this should be built from source downloaded by psp repo script
-    - wheel
     - coreutils
+    - nvim # XXX(tom): deleteme
   host:
     - python
     - pip
@@ -65,40 +66,12 @@ test:
   imports:
     - perspective
 
-# outputs:
-#   - name: perspective
-#     type: wheel
-#     files:
-#       - rust/target/wheels/perspective_python-*.whl
-
-  # - name: perspective-python
-  #   requirements:
-  #     build:
-  #       - {{ stdlib("c") }}
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - perspective ={{ version }}
-
-  # TODO this is supposed to work, but fails with weird
-  # bugs. Try again in the future
-  # - name: perspective_python
-  #   build:
-  #     noarch: python
-  #   requirements:
-  #     host:
-  #       - python
-  #     run:
-  #       - python
-  #       - {{ pin_subpackage("perspective", exact=True) }}
-
 about:
   home: http://github.com/finos/perspective
   license: Apache-2.0
   license_family: Apache
   license_file:
-    - perspective-cpp/LICENSE.md
+    - LICENSE.md
   summary: Streaming pivot visualization via WebAssembly
   description: Streaming pivot visualization via WebAssembly
   dev_url: https://github.com/finos/perspective
