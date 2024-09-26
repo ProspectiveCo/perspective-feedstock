@@ -9,7 +9,7 @@ source:
   git_url: https://github.com/finos/perspective.git
   git_rev: v3.1.0
   patches:
-    - patches/fix_boost_install.diff
+    - patches/boost_headers_only.diff
     - patches/disable_abi3.diff
     - patches/disable_explicit_manylinux.diff
     - patches/delete_postinstall.diff
@@ -46,6 +46,7 @@ requirements:
     - pip
     - maturin >=1.4,<2.0
     - libstdcxx
+    - libboost-headers
   run:
     - python
 
