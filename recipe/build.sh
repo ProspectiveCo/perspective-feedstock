@@ -37,29 +37,29 @@ pnpm install --filter '@finos/perspective-python'
 # needed to link Boost for arrow reasons, but arrow-cpp recipe only depends on libboost-headers
 # so maybe we can too somehow.
 # Note: assumes GNU mktemp, available from coreutils package
-psp_bin=$(mktemp -d -t 'psp-bin-XXXXXX')
-case "${cxx_compiler}" in
-  gxx)
-    cxx_compiler_plus="g++"
-    ;;
-  *)
-    cxx_compiler_plus="${cxx_compiler}"
-  ;;
-esac
+# psp_bin=$(mktemp -d -t 'psp-bin-XXXXXX')
+# case "${cxx_compiler}" in
+#   gxx)
+#     cxx_compiler_plus="g++"
+#     ;;
+#   *)
+#     cxx_compiler_plus="${cxx_compiler}"
+#   ;;
+# esac
 
-ORIG_PATH=$PATH
-export PATH=$psp_bin:$PATH
-ln -s $CXX $psp_bin/cxx
-ln -s $CXX $psp_bin/$cxx_compiler_plus
+# ORIG_PATH=$PATH
+# export PATH=$psp_bin:$PATH
+# ln -s $CXX $psp_bin/cxx
+# ln -s $CXX $psp_bin/$cxx_compiler_plus
 
 # Install boost:
 # This configures both the install directory for install_tools.mjs,
 # and also the place where FindBoost looks for Boost.
 # Note: assumes GNU mktemp
-export Boost_ROOT=$(mktemp -d -t 'psp-boost-root-XXXXXX')
-node tools/perspective-scripts/install_tools.mjs
+# export Boost_ROOT=$(mktemp -d -t 'psp-boost-root-XXXXXX')
+# node tools/perspective-scripts/install_tools.mjs
 
-PATH=$ORIG_PATH
+# PATH=$ORIG_PATH
 
 # Run perspective build
 export PACKAGE=perspective-python
