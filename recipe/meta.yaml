@@ -9,11 +9,13 @@ source:
   git_url: https://github.com/finos/perspective.git
   git_rev: v3.1.0
   patches:
+    # XXX(tom): clean up unused patches
     - patches/boost_headers_only.diff
     - patches/disable_abi3.diff
     - patches/disable_explicit_manylinux.diff
     - patches/delete_postinstall.diff
     - patches/delete_lint_package.diff
+    # - patches/fix_flags.diff
   # git_depth: 1
 
 build:
@@ -25,6 +27,7 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - maturin >=1.4,<2.0                     # [build_platform != target_platform]
+    - libboost-headers                       # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
@@ -35,11 +38,13 @@ requirements:
     - pnpm
     - pkg-config
     - git
-    - wget # to download boost sources from install_tools.mjs
-    - coreutils # sed, build.sh
     # XXX(tom): emsdk? no, use `jupyterlab` tooling to build extension from npm source (which will DL wasm blob)
     - xsimd # XXX(tom): Andrew says we shouldn't need this b/c we disable SIMD in arrow build
     - lz4 # XXX(tom): likewise, this should be built from source downloaded by psp repo script. and yet the build fails without it
+    # Seems relevant, from the build spew:
+    # By not providing "Findlz4.cmake" in CMAKE_MODULE_PATH this project has
+    # asked CMake to find a package configuration file provided by "lz4", but
+    # CMake did not find one.
     - nvim # XXX(tom): deleteme
   host:
     - python
