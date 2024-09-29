@@ -1,0 +1,14 @@
+diff --git a/rust/perspective-python/build.mjs b/rust/perspective-python/build.mjs
+index 78fbd5083..8b8bd668e 100644
+--- a/rust/perspective-python/build.mjs
++++ b/rust/perspective-python/build.mjs
+@@ -87,6 +87,12 @@ if (build_wheel) {
+         flags += " -vv";
+     }
+
++	 // FIXME: shell-quote PYTHON, or build up command line flags as an array instead
++	 flags += ` --interpreter='${process.env.PYTHON}'`;
++
+     cmd.sh(`maturin build ${flags} --features=external-cpp ${target}`);
+ }
+
