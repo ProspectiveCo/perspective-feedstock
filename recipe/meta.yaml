@@ -11,6 +11,8 @@ source:
   patches:
     # XXX(tom): clean up unused patches
     - patches/shared_boost.diff
+    # XXX(tom): want to understand better what fix_flags.diff fixes.
+    # It resolved some include-path issues when switching to libboost-headers
     - patches/fix_flags.diff
     - patches/boost_headers_only.diff
     - patches/disable_abi3.diff
