@@ -10,12 +10,13 @@ source:
   git_rev: v3.1.0
   patches:
     # XXX(tom): clean up unused patches
+    - patches/shared_boost.diff
+    - patches/fix_flags.diff
     - patches/boost_headers_only.diff
     - patches/disable_abi3.diff
     - patches/disable_explicit_manylinux.diff
     - patches/delete_postinstall.diff
     - patches/delete_lint_package.diff
-    # - patches/fix_flags.diff
   # git_depth: 1
 
 build:
