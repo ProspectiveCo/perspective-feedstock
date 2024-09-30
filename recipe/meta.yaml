@@ -54,7 +54,8 @@ requirements:
     - python
     - pip
     - maturin >=1.4,<2.0
-    - libstdcxx
+    # XXX(tom): very few conda-forge recipes use libstdcxx dep
+    - libstdcxx # [linux]
     - libboost-headers
   run:
     - python
