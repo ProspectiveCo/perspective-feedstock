@@ -19,7 +19,8 @@ source:
     - patches/delete_postinstall.diff
     - patches/delete_lint_package.diff
     - patches/fix_maturin.diff
-    - patches/fix_arch.diff
+    # - patches/fix_arch.diff # XXX(tom): not needed
+    - patches/more_logging.diff
 
 build:
   number: 0
