@@ -49,13 +49,12 @@ requirements:
     # By not providing "Findlz4.cmake" in CMAKE_MODULE_PATH this project has
     # asked CMake to find a package configuration file provided by "lz4", but
     # CMake did not find one.
-    - nvim # XXX(tom): deleteme
   host:
     - python
     - pip
     - maturin >=1.4,<2.0
     # XXX(tom): very few conda-forge recipes use libstdcxx dep
-    - libstdcxx # [linux]
+    - libstdcxx  # [linux]
     - libboost-headers
   run:
     - python
