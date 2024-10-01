@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 # XXX(tom): don't understand why it's needed to set PKG_CONFIG_PATH.
 # this directory is already present in pkg-config's config path as reported by
@@ -8,14 +8,16 @@ set -e
 export PKG_CONFIG_PATH=$BUILD_PREFIX/lib/pkgconfig/:$PKG_CONFIG_PATH
 
 case "${target_platform}" in
-  linux-aarch64|osx-arm64)
-    arch="aarch64"
-    ;;
-  *)
-    arch="x86_64"
-    ;;
+linux-aarch64 | osx-arm64)
+  arch="aarch64"
+  ;;
+*)
+  arch="x86_64"
+  ;;
 esac
 export PSP_ARCH=$arch
+
+echo "PSP_ARCH: $arch"
 
 pnpm install --filter '@finos/perspective-python'
 
