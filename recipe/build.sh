@@ -24,6 +24,10 @@ pnpm install --filter '@finos/perspective-python'
 # Run perspective git-source build
 export PACKAGE=perspective-python
 export PSP_BUILD_WHEEL=1
+export PROTOC
+# protobuf-src is patched out of the build.  its build script fails to link in
+# an osx cross-compiling environment; the wrong toolchain is used.
+PROTOC=$(which protoc)
 pnpm run build
 
 # Install wheel to site-packages ($SP_DIR), wherefrom Conda assembles the .conda package contents
