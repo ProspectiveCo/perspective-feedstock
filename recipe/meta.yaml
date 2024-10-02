@@ -21,6 +21,7 @@ source:
     - patches/fix_maturin.diff
     # - patches/fix_arch.diff # XXX(tom): not needed
     - patches/more_logging.diff
+    - patches/disable_protobuf_src.diff
 
 build:
   number: 0
