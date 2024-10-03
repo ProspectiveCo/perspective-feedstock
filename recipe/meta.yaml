@@ -42,7 +42,6 @@ requirements:
     - nodejs
     - pnpm
     - pkg-config
-    - git
     - libprotobuf # for protoc
     # XXX(tom): emsdk? no, use `jupyterlab` tooling to build extension from npm source (which will DL wasm blob)
     - xsimd # XXX(tom): Andrew says we shouldn't need this b/c we disable SIMD in arrow build
