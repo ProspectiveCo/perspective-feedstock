@@ -22,10 +22,13 @@ source:
     # - patches/fix_arch.diff # XXX(tom): not needed
     - patches/more_logging.diff
     - patches/disable_protobuf_src.diff
+    - patches/fix_windows.diff
 
 build:
   number: 0
   skip: True  # [py<39]
+  ignore_run_exports_from:
+  - libboost-devel
 
 requirements:
   build:
