@@ -27,8 +27,6 @@ source:
 build:
   number: 0
   skip: True  # [py<39]
-  ignore_run_exports_from:
-  - libboost-devel
 
 requirements:
   build:
