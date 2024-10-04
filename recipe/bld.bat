@@ -24,18 +24,21 @@
 
 set "PROTOC="
 for /f %%i in ('where protoc') do if not defined PROTOC set "PROTOC=%%i"
-if not defined PROTOC echo "protoc not found" & exit 1
+if not defined PROTOC echo "protoc not found" & exit /b 1
 
 set PSP_BUILD_WHEEL=1
 set PSP_ARCH=x86_64
 set PACKAGE=perspective-python
+set "PSP_ROOT_DIR=%SRC_DIR%"
+@REM If your build is hosted on a different drive, like at C:\bld, you may need to adjust the
+@REM CARGO_TARGET_DIR value to use the same drive, or else you may encounter an error like this:
+@REM Error: Os { code: 17, kind: CrossesDevices, message: "The system cannot move the file to a different disk drive." }
+set "CARGO_TARGET_DIR=D:\psp-rust"
 pnpm install --filter @finos/perspective-python
-if errorlevel 1 exit 1
-
 pnpm run build
-if errorlevel 1 exit 1
+if errorlevel 1 exit /b 1
 
 $PYTHON -m pip install rust/target/wheels/perspective_python*.whl -vv
-if errorlevel 1 exit 1
+if errorlevel 1 exit /b 1
 
 echo "They can build perspective. Why can't they make a cup of coffee that tastes good?"
