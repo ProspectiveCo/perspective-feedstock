@@ -34,8 +34,8 @@ set "PSP_ROOT_DIR=%SRC_DIR%"
 @REM CARGO_TARGET_DIR value to use the same drive, or else you may encounter an error like this:
 @REM Error: Os { code: 17, kind: CrossesDevices, message: "The system cannot move the file to a different disk drive." }
 set "CARGO_TARGET_DIR=D:\psp-rust"
-pnpm install --filter @finos/perspective-python
-pnpm run build
+call pnpm install --filter "@finos/perspective-python"
+call pnpm run build
 if errorlevel 1 exit /b 1
 
 $PYTHON -m pip install rust/target/wheels/perspective_python*.whl -vv
