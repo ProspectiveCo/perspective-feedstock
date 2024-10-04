@@ -15,11 +15,10 @@ source:
     # It resolved some include-path issues when switching to libboost-headers
     - patches/fix_flags.diff
     - patches/boost_headers_only.diff
-    - patches/disable_abi3.diff
+    - patches/disable_abi3.diff  # [py<313]
     - patches/delete_postinstall.diff
     - patches/delete_lint_package.diff
     - patches/fix_maturin.diff
-    # - patches/fix_arch.diff # XXX(tom): not needed
     - patches/more_logging.diff
     - patches/disable_protobuf_src.diff
     - patches/fix_windows.diff
