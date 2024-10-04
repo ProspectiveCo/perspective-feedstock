@@ -15,9 +15,8 @@ index f2790cf76..b06707506 100644
      if(PSP_PYODIDE)
          set(CMAKE_FIND_ROOT_PATH "${CMAKE_FIND_ROOT_PATH};/usr/local/")
          find_package(Boost REQUIRED)
--    elseif(NOT WIN32)
+     elseif(NOT WIN32)
 -        set(Boost_USE_STATIC_LIBS ON)
-+    else()
          find_package(Boost REQUIRED COMPONENTS system)
      endif()
  
