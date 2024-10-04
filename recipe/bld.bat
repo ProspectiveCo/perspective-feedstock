@@ -38,7 +38,7 @@ call pnpm install --filter "@finos/perspective-python"
 call pnpm run build
 if errorlevel 1 exit /b 1
 
-for %%w in (%CARGO_TARGET_DIR%\wheels\perspective_python*.whl) do "%PYTHON%" -m pip install "%WHEEL%" -vv
+for %%w in (%CARGO_TARGET_DIR%\wheels\perspective_python*.whl) do "%PYTHON%" -m pip install "%%w" -vv
 if errorlevel 1 exit /b 1
 
 echo "They can build perspective. Why can't they make a cup of coffee that tastes good?"
