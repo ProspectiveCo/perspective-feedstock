@@ -19,8 +19,6 @@
 @REM %PYTHON% %RECIPE_DIR%\\copy.py
 @REM if errorlevel 1 exit 1
 
-PWD
-
 @REM protobuf-src is patched out of the build.  its build script fails to link in
 @REM an osx cross-compiling environment; the wrong toolchain is used.
 
